@@ -1,0 +1,16 @@
+# Copy the active ISE editor tab to a new tab with the cursor in the same position
+
+function Copy-ISEEditorTab
+{
+    # Copy script from current editor tab 
+    $codeInCurrentEditorTab = $psISE.CurrentFile.Editor.Text
+    # Copy cursor position
+    $currentCursorLine = $psISE.CurrentFile.Editor.CaretLine
+    $currentCursorColumn = $psISE.CurrentFile.Editor.CaretColumn
+    # Create a new editor tab
+    $newFile = $psISE.CurrentPowerShellTab.Files.Add()
+    # Copy the script into the new editor tab
+    $newFile.Editor.Text = $codeInCurrentEditorTab
+    # Put the cursor in the same place
+    $newFile.Editor.SetCaretPosition($currentCursorLine,$currentCursorColumn)
+}
